@@ -1,63 +1,57 @@
+import { useRef } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import Reveal from './Reveal.jsx';
-
-const roles = [
-  {
-    title: 'Sales Engineer — Verizon Wireless',
-    meta: 'May 2025 – Present · Orlando, FL',
-    copy:
-      'Leading live customer calls to demo devices and troubleshoot in real time across a 24-store regional footprint. Resolving integration and billing discrepancies by reading system error logs and working internal APIs — the bridge between operations and engineering.',
-  },
-  {
-    title: 'Business Account Manager — Verizon Wireless',
-    meta: 'Nov 2023 – May 2025 · Orlando, FL',
-    copy:
-      'Trusted technical advisor to SMB enterprise clients. Built a logic-based Excel automation engine for complex multi-condition pricing workflows — cutting deal turnaround time by 80%.',
-  },
-  {
-    title: 'Front End Developer Intern — Wazuh, Inc.',
-    meta: 'Jun 2023 – Sep 2023 · Orlando, FL',
-    copy:
-      'Built and maintained React components for a cybersecurity dashboard serving thousands of enterprise users, integrating OpenSearch visualizations. CI/CD deployments, code reviews, agile sprints.',
-  },
-  {
-    title: 'B.S. Computer Science — University of Central Florida',
-    meta: 'Expected May 2027 · 4.0 GPA · Dean’s List',
-    copy:
-      'Data Structures & Algorithms, Systems Software, OOP, Computer Organization. Plus a 240-hour Full-Stack Bootcamp Certificate (MERN, REST, GraphQL, SQL/NoSQL, Agile).',
-  },
-];
+import { experience, education, stats } from '../content.js';
+import Counter from './Counter.jsx';
 
 export default function Experience() {
+  const tlRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: tlRef, offset: ['start 0.75', 'end 0.6'] });
+  const threadScale = useSpring(scrollYProgress, { stiffness: 80, damping: 24 });
+
   return (
-    <section className="section section-grey" id="experience">
+    <section id="experience" className="section section-grey" aria-label="Experience">
       <div className="wrap">
-        <Reveal>
-          <p className="eyebrow">Origin story</p>
-          <h2 className="display-xl" style={{ margin: '14px 0 56px' }}>
-            Every hero has{' '}
-            <span className="serif-accent" style={{ color: 'var(--red)' }}>an origin.</span>
+        <div className="stats-band">
+          {stats.map((s, i) => (
+            <Reveal key={s.label} delay={i * 0.08} className="stat">
+              <span className="stat-n">
+                <Counter to={s.n} decimals={s.decimals || 0} suffix={s.suffix} />
+              </span>
+              <span className="stat-label">{s.label}</span>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="section-head">
+          <p className="eyebrow">Experience</p>
+          <h2 className="display-lg" style={{ marginTop: 14 }}>
+            Where I’ve been <span className="serif-accent">swinging.</span>
           </h2>
         </Reveal>
-        <Reveal className="stats-band">
-          {[
-            { n: '4.0', label: 'GPA — UCF Computer Science' },
-            { n: '80%', label: 'faster deal turnaround via Excel automation' },
-            { n: '72h', label: 'to architect & ship a full-stack AI app' },
-            { n: '3', label: 'languages — English, Spanish, Portuguese' },
-          ].map((s) => (
-            <div key={s.label} className="stat">
-              <span className="stat-n">{s.n}</span>
-              <span className="stat-label">{s.label}</span>
-            </div>
-          ))}
-        </Reveal>
-        <div className="timeline">
-          {roles.map((r, i) => (
-            <Reveal key={r.title} delay={i * 0.06} className="tl-item">
+
+        <div className="timeline" ref={tlRef}>
+          <motion.div className="timeline-thread" style={{ scaleY: threadScale }} />
+          {experience.map((job, i) => (
+            <Reveal key={job.role} delay={i * 0.06} className="tl-item">
               <span className="tl-dot" />
-              <h3>{r.title}</h3>
-              <p className="tl-meta">{r.meta}</p>
-              <p className="body-copy">{r.copy}</p>
+              <h3>{job.role}</h3>
+              <p className="tl-meta">
+                {job.company} · {job.period}
+              </p>
+              <p className="body-copy">{job.body}</p>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="edu-grid">
+          {education.map((e, i) => (
+            <Reveal key={e.credential} delay={i * 0.08}>
+              <div className="edu-card">
+                <h4>{e.school}</h4>
+                <p className="cred">{e.credential}</p>
+                <p>{e.detail}</p>
+              </div>
             </Reveal>
           ))}
         </div>
