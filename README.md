@@ -3,7 +3,7 @@
 > A premium, Apple-inspired portfolio with a friendly neighborhood twist.
 > React · React Three Fiber · Framer Motion. Zero icon libraries, zero placeholder assets.
 
-**Live:** deployed on Vercel · **Guide:** [`/guide`](./src/pages/Guide.jsx) explains every animation technique on the site.
+**Live:** [portfolio-three-red-18.vercel.app](https://portfolio-three-red-18.vercel.app) · **Guide:** [/guide](https://portfolio-three-red-18.vercel.app/guide) explains every animation technique on the site.
 
 ---
 
