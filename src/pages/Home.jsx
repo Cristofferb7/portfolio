@@ -1,41 +1,26 @@
+import { useRef } from 'react';
 import Hero from '../components/Hero.jsx';
 import Lineup from '../components/Lineup.jsx';
-import Features from '../components/Features.jsx';
+import Projects from '../components/Projects.jsx';
+import HowIBuild from '../components/HowIBuild.jsx';
 import Experience from '../components/Experience.jsx';
 import Skills from '../components/Skills.jsx';
-import { SpiderMark } from '../icons.jsx';
-
-const marqueeItems = [
-  'React', 'Node.js', 'MongoDB', 'Express', 'TypeScript', 'Python',
-  'FastAPI', 'PostgreSQL', 'Gemini API', 'Claude', 'GraphQL', 'Docker',
-];
-
-function Marquee() {
-  const row = (key) => (
-    <span className="marquee-item" key={key} aria-hidden={key === 'b'}>
-      {marqueeItems.map((m) => (
-        <span key={m} style={{ display: 'inline-flex', alignItems: 'center', gap: 56 }}>
-          {m} <SpiderMark size={13} color="#d2d2d7" />
-        </span>
-      ))}
-    </span>
-  );
-  return (
-    <div className="marquee">
-      <div className="marquee-track">{row('a')}{row('b')}</div>
-    </div>
-  );
-}
+import Footer from '../components/Footer.jsx';
+import SpiderCameo from '../components/SpiderCameo.jsx';
 
 export default function Home() {
+  const scrollProgressRef = useRef(0);
+
   return (
     <main>
-      <Hero />
-      <Marquee />
+      <Hero scrollProgressRef={scrollProgressRef} />
       <Lineup />
-      <Features />
+      <Projects />
+      <HowIBuild />
       <Experience />
       <Skills />
+      <Footer />
+      <SpiderCameo />
     </main>
   );
 }

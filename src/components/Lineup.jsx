@@ -1,40 +1,95 @@
+import { useRef } from 'react';
 import Reveal from './Reveal.jsx';
-import {
-  IconReact, IconNode, IconSQL, IconAI, IconCloud, IconTS,
-} from '../icons.jsx';
+import { lineup } from '../content.js';
+import { lineupIcons } from '../icons.jsx';
 
-const ink = '#1d1d1f';
-
-const lineup = [
-  { icon: <IconReact ink={ink} />, title: 'Web Apps', copy: 'React front ends with motion design, 3D, and obsessive polish.' },
-  { icon: <IconNode ink={ink} />, title: 'APIs', copy: 'Node/Express and FastAPI services with clean OpenAPI contracts.' },
-  { icon: <IconAI ink={ink} />, title: 'AI Agents', copy: 'Gemini & Claude integrations with structured, reliable outputs.' },
-  { icon: <IconSQL ink={ink} />, title: 'Data Platforms', copy: 'Federated Presto SQL across Cassandra, Iceberg, and Postgres.' },
-  { icon: <IconTS ink={ink} />, title: 'Typed Systems', copy: 'TypeScript end to end — fewer bugs, faster refactors.' },
-  { icon: <IconCloud ink={ink} />, title: 'Ship & Scale', copy: 'CI/CD pipelines, Docker, Vercel — code that actually ships.' },
-];
-
+/**
+ * Apple-store style horizontal capability rail.
+ * Cursor-tracked glow per card + physical drag-to-scroll with momentum.
+ */
 export default function Lineup() {
+  const rowRef = useRef(null);
+  const drag = useRef({ down: false, startX: 0, scrollLeft: 0, vel: 0, lastX: 0, raf: 0 });
+
+  const onMove = (e) => {
+    const card = e.currentTarget;
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    card.style.setProperty('--my', `${e.clientY - r.top}px`);
+  };
+
+  const onPointerDown = (e) => {
+    const row = rowRef.current;
+    if (!row) return;
+    cancelAnimationFrame(drag.current.raf);
+    drag.current = { ...drag.current, down: true, startX: e.clientX, scrollLeft: row.scrollLeft, lastX: e.clientX, vel: 0 };
+  };
+  const onPointerMove = (e) => {
+    const row = rowRef.current;
+    const d = drag.current;
+    if (!row || !d.down) return;
+    row.scrollLeft = d.scrollLeft - (e.clientX - d.startX);
+    d.vel = d.lastX - e.clientX;
+    d.lastX = e.clientX;
+  };
+  const endDrag = () => {
+    const row = rowRef.current;
+    const d = drag.current;
+    if (!row || !d.down) return;
+    d.down = false;
+    // momentum glide
+    const glide = () => {
+      if (Math.abs(d.vel) < 0.4) return;
+      row.scrollLeft += d.vel;
+      d.vel *= 0.94;
+      d.raf = requestAnimationFrame(glide);
+    };
+    glide();
+  };
+
   return (
-    <section className="section" style={{ paddingBottom: 40 }}>
+    <section id="capabilities" className="section section-grey" aria-label="Capabilities">
       <div className="wrap">
-        <Reveal style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 34 }}>
-          <h2 className="display-lg">
-            The lineup.{' '}
-            <span style={{ color: 'var(--muted)' }}>What I build, right now.</span>
+        <Reveal className="section-head">
+          <p className="eyebrow">The lineup</p>
+          <h2 className="display-lg" style={{ marginTop: 14 }}>
+            Which Cristoffer is right for you?
           </h2>
+          <p className="lede" style={{ marginTop: 14, maxWidth: 560 }}>
+            All of them, ideally. They ship as a bundle.
+          </p>
         </Reveal>
-        <Reveal delay={0.1}>
-          <div className="lineup-row">
-            {lineup.map((c) => (
-              <div className="lineup-card" key={c.title}>
-                <div className="card-icon">{c.icon}</div>
-                <h3>{c.title}</h3>
-                <p>{c.copy}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+      </div>
+      <div className="wrap">
+        <div
+          ref={rowRef}
+          className="lineup-row"
+          role="list"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerLeave={endDrag}
+        >
+          {lineup.map((item, i) => {
+            const Icon = lineupIcons[item.icon];
+            return (
+              <Reveal
+                key={item.title}
+                delay={i * 0.07}
+                className="lineup-item"
+                style={{ flex: '0 0 300px', display: 'flex' }}
+              >
+                <div className="lineup-card" role="listitem" onPointerMove={onMove} style={{ flex: 1 }}>
+                  <div className="card-icon">
+                    <Icon />
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
