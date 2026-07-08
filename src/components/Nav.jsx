@@ -1,50 +1,101 @@
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SpiderMark } from '../icons.jsx';
+import { identity } from '../content.js';
 
 const sections = [
+  { label: 'Capabilities', id: 'capabilities' },
   { label: 'Work', id: 'work' },
+  { label: 'Process', id: 'process' },
   { label: 'Experience', id: 'experience' },
   { label: 'Skills', id: 'skills' },
+  { label: 'Guide', to: '/guide' },
 ];
 
 export default function Nav() {
-  const { pathname } = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
-  const goTo = (id) => {
-    if (pathname !== '/') {
+  const go = (id) => {
+    setOpen(false);
+    if (location.pathname !== '/') {
       navigate('/');
-      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }), 80);
+      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }), 60);
     } else {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  return (
-    <nav className="nav">
-      <div className="nav-inner">
-        <Link to="/" aria-label="Home" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <SpiderMark size={24} color="#1d1d1f" />
-          <span style={{ fontWeight: 650, fontSize: 15, letterSpacing: '-0.02em' }}>
-            Cristoffer Bohorquez
-          </span>
+  const renderLinks = () =>
+    sections.map((s) =>
+      s.to ? (
+        <Link key={s.label} className="nav-link" to={s.to} onClick={() => setOpen(false)}>
+          {s.label}
         </Link>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 34 }}>
-          <div className="nav-links">
-            {sections.map((s) => (
-              <button key={s.id} className="nav-link" onClick={() => goTo(s.id)}>
-                {s.label}
-              </button>
-            ))}
-            <Link to="/guide" className="nav-link" style={{ padding: 0 }}>
-              Guide
-            </Link>
+      ) : (
+        <button key={s.label} className="nav-link" onClick={() => go(s.id)}>
+          {s.label}
+        </button>
+      )
+    );
+
+  return (
+    <>
+      <header className="nav">
+        <div className="nav-inner">
+          <Link to="/" aria-label="Home" style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+            <SpiderMark />
+            <span style={{ fontWeight: 650, fontSize: 15, letterSpacing: '-0.02em' }}>
+              Cristoffer Bohorquez
+            </span>
+          </Link>
+          <nav className="nav-links" aria-label="Primary">
+            {renderLinks()}
+          </nav>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <a className="nav-cta" href={`mailto:${identity.email}`}>
+              Get in touch
+            </a>
+            <button
+              className="mobile-menu-btn"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+                <motion.line
+                  x1="2" x2="18"
+                  stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
+                  animate={open ? { y1: 10, y2: 10, rotate: 45 } : { y1: 6.5, y2: 6.5, rotate: 0 }}
+                  style={{ originX: '10px', originY: '10px' }}
+                />
+                <motion.line
+                  x1="2" x2="18"
+                  stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
+                  animate={open ? { y1: 10, y2: 10, rotate: -45 } : { y1: 13.5, y2: 13.5, rotate: 0 }}
+                  style={{ originX: '10px', originY: '10px' }}
+                />
+              </svg>
+            </button>
           </div>
-          <a className="nav-cta" href="mailto:cristofferbohorquez@gmail.com">
-            Get in touch
-          </a>
         </div>
-      </div>
-    </nav>
+      </header>
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            className="mobile-menu"
+            aria-label="Mobile"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {renderLinks()}
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
