@@ -69,7 +69,10 @@ export const projects = [
     body: 'A six-endpoint analytics API against a live enterprise IBM watsonx.data cluster. Federated Presto SQL joins hot operational data in Cassandra with cold historical archives in Iceberg — in a single query. Spec-driven from requirements docs to code, with OpenAPI contract tests and custom TLS bearer-token clients, built via AI-agent pair programming.',
     tech: ['FastAPI', 'Presto', 'Cassandra', 'Iceberg', 'watsonx.data', 'OpenAPI'],
     image: art.threadsDark, fallback: 'linear-gradient(135deg,#0b0b0f,#1c1c26)',
-    links: [],
+    links: [
+      { label: 'GitHub', href: 'https://github.com/Cristofferb7/wxd-spec-coding-dashboard' },
+      { label: 'Live Demo', href: 'https://wxd-spec-coding-dashboard.vercel.app' },
+    ],
     span: 12,
   },
   {
