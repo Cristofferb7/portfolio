@@ -1,106 +1,98 @@
 import { useState } from 'react';
 import Reveal from '../components/Reveal.jsx';
-import { WebCorner } from '../icons.jsx';
+import Footer from '../components/Footer.jsx';
 
-const steps = [
-  {
-    n: '01',
-    title: 'The 3D web — React Three Fiber',
-    copy: 'The hero web is not an image. It is a procedural BufferGeometry: 18 radial spokes with per-spoke angle jitter, plus 9 concentric "capture spiral" rings whose midpoints sag 3.5% toward center to fake catenary physics. Rendered as lineSegments with a single draw call, it breathes via a sine-scaled transform and leans toward your cursor with lerped rotation (a 0.04 smoothing factor) inside useFrame — that\'s the spider-sense parallax.',
-  },
-  {
-    n: '02',
-    title: 'Cinematic reveals — Framer Motion',
-    copy: 'Every section uses a shared <Reveal> component: opacity 0 → 1 and a 36px vertical rise on a custom cubic-bezier(0.22, 1, 0.36, 1) — the same "ease out expo" family Apple leans on. whileInView with viewport={{ once: true, margin: "-80px" }} triggers the animation just before elements enter, so motion is always felt, never waited on. Hero children stagger 120ms apart.',
-  },
-  {
-    n: '03',
-    title: 'The red thread — scroll physics',
-    copy: 'The progress bar at the top is Framer Motion\'s useScroll piped through useSpring (stiffness 90, damping 24), so it stretches like an elastic web strand instead of tracking scroll linearly. Small physical touches like this read as "expensive" without a single asset.',
-  },
-  {
-    n: '04',
-    title: 'Apple-style restraint',
-    copy: 'The system: one accent red (#e11d2e), near-black ink (#1d1d1f) on near-white paper (#fbfbfd), 12-column feature grid, oversized -0.045em-tracked display type, and a glass nav (backdrop-filter: saturate(180%) blur(20px)). Spider-Man lives in the details — dew drops on the web, a dangling spider above the contact CTA, mask eyes in the skills header — never in the layout.',
-  },
-  {
-    n: '05',
-    title: 'Zero-dependency iconography',
-    copy: 'Every icon is a hand-written inline SVG in one icons.jsx module — tech marks, the CB spider monogram, web corners, the animated scroll mouse (pure SMIL, no JS). Inline SVG means perfect crispness at any DPI, themeable via currentColor, and zero network requests.',
-  },
+/**
+ * /guide — the making-of. Architecture, motion logic, asset workflow,
+ * and how to replicate the whole build.
+ */
+
+const stack = [
+  { k: 'React 18 + Vite', v: 'Instant dev server, tiny production bundles, zero framework tax for a content site. SPA with two routes — no SSR needed for a portfolio, so the simplest fast thing wins.' },
+  { k: 'React Three Fiber + Three.js', v: 'The hero web is procedural geometry — 20 spokes, 10 spiral rings — rendered as GL line segments with a custom GLSL shader. No models, no downloads: the whole 3D scene costs ~0 network bytes.' },
+  { k: 'Framer Motion', v: 'Every entrance, stagger, counter, and the pinned "How I build" panel. Springs and [0.22, 1, 0.36, 1] easing everywhere for the Apple feel.' },
+  { k: 'Custom canvas + SVG', v: 'The silk cursor trail is a raw 2D-canvas polyline with age-based taper. The spider cameo, icons, and process diagrams are hand-written inline SVG — zero icon libraries.' },
+  { k: 'Vercel', v: 'Static build (vite build) auto-deployed from GitHub on push to main. SPA rewrites via vercel.json.' },
 ];
 
-const prompts = [
-  {
-    title: '1 · Hero web — macro photography plate',
-    text: `Generate a 4K (3840×2160) ultra-photorealistic macro photograph of a spider web at dawn, shot on a 100mm macro lens at f/2.8. The web spans the right third of frame against a seamless, near-white studio background (#fbfbfd) with soft graduated falloff. Silk strands must be razor-sharp with visible micro-texture; 6–8 dew droplets refract a faint crimson accent light (#e11d2e). Lighting: large soft key at 45° camera-left, subtle rim light from behind to halo the strands. Mood: premium, minimal, Apple-product-page cleanliness. No spider, no leaves, no background detail, no text, no watermark. Composition must leave the left two-thirds as clean negative space for headline typography.`,
-  },
-  {
-    title: '2 · Feature card — cinematic skyline swing',
-    text: `Generate a 4K cinematic wide shot of the Brooklyn/Manhattan skyline at blue hour from a rooftop POV, anamorphic 2.39:1 crop centered in a 16:9 frame. A single, elegant strand of spider silk arcs across the upper-right corner, catching a red neon reflection (#e11d2e) — the only warm accent in a cool blue-graphite palette (#0b0b0f to #2b3a8f). Photorealistic, shot-on-ALEXA look: gentle halation, fine film grain, deep shadows with lifted blacks. No people, no logos, no visible Spider-Man character, no text. The bottom 40% must stay dark and low-detail so white UI text remains legible over it.`,
-  },
-  {
-    title: '3 · Skills section — carbon-weave texture',
-    text: `Generate a 4K seamless-tileable dark texture: matte carbon-black surface (#0b0b0f) embossed with an ultra-subtle hexagonal spider-web lattice, raised 1–2% in luminance, visible only at glancing light. A single diagonal light sweep crosses at 30°, and one intersection node glows faint crimson (#e11d2e) at 15% opacity. Style reference: Apple Pro product pages — restrained, tactile, engineered. Must tile seamlessly on both axes. No characters, no dust, no scratches, no text, no vignette.`,
-  },
-  {
-    title: '4 · Project thumbnail — tech noir workstation',
-    text: `Generate a 4K photorealistic still-life: a minimal developer workstation on a walnut desk at night — laptop showing an out-of-focus code editor with red syntax accents (#e11d2e), ceramic mug, small red-and-blue enamel spider pin resting beside the trackpad as the only explicit motif. Shallow depth of field (85mm f/1.8), moody split lighting: cool window light camera-left, warm desk lamp camera-right. Color grade: graphite shadows, clean whites, one red accent. Composition on rule-of-thirds with the pin at the lower-right power point. No faces, no brand logos, no text overlays.`,
-  },
-  {
-    title: '5 · Guide header — silk-thread typography plate',
-    text: `Generate a 4K studio photograph of the single word "GUIDE" formed from taut, photorealistic spider-silk threads suspended between two invisible anchor points, against a pure #fbfbfd background. The silk letterforms are thin, geometric, sans-serif in skeleton — think Apple SF Pro Display Light drawn in thread — with tiny dew highlights and one thread deliberately snapped and curling away on the final letter. Lighting: high-key, shadowless, product-photography style with 5% soft drop shadow directly below the letters. Crimson (#e11d2e) reflected only in the dew. No spider, no web mesh, no texture in the background, no watermark.`,
-  },
+const motionNotes = [
+  { title: 'Hero headline', body: 'Per-word stagger: each word rises 46px, un-blurs from 10px, and un-rotates from 24° on the X axis — a keynote-style entrance. Delay step: 120ms.' },
+  { title: 'Living web', body: 'A GLSL fragment shader drives a crimson shimmer that radiates outward along every strand (distance-from-hub attribute + time uniform). Vertices near your cursor get a gaussian Z-push with a travelling sine — touch the web and it ripples. Scroll dollies the scene away and fades it via a shared ref, so React never re-renders the canvas.' },
+  { title: 'Magnetic buttons', body: 'Pointer-move translates the button toward the cursor at 0.32× displacement; on leave it springs home with a 500ms Apple ease. Pure DOM transforms — no re-renders.' },
+  { title: 'Scroll-telling', body: 'The process panel is position:sticky; an IntersectionObserver with a -42% rootMargin band picks the active step, and AnimatePresence swaps SVG scenes drawn in with pathLength animations.' },
+  { title: 'Details', body: 'Timeline thread scales with scroll spring. Stats count up with springs. Cards tilt in 3D perspective toward the pointer with parallax media. A spider rappels down at 45% scroll — once per visit. Everything honors prefers-reduced-motion.' },
 ];
 
-function PromptCard({ p }) {
-  const [copied, setCopied] = useState(false);
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(p.text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
-    } catch { /* clipboard unavailable */ }
-  };
-  return (
-    <Reveal className="prompt-card">
-      <div className="prompt-head">
-        <h4>{p.title}</h4>
-        <button className="copy-btn" onClick={copy}>{copied ? 'Copied ✓' : 'Copy'}</button>
-      </div>
-      <div className="prompt-body">{p.text}</div>
-    </Reveal>
-  );
-}
+const replicate = [
+  { n: '1', title: 'Write the content model first', body: 'Every word on this site lives in src/content.js. Rewrite your résumé there — confident, specific, quantified — before touching a component. Design follows copy.' },
+  { n: '2', title: 'Scaffold', body: 'npm create vite@latest → React. Add three, @react-three/fiber, framer-motion, react-router-dom. Set up the design tokens (:root CSS variables) as your single source of visual truth.' },
+  { n: '3', title: 'Build the 3D centerpiece', body: 'Generate geometry procedurally (BufferGeometry + Float32Array) instead of loading models. Drive color/alpha with a small ShaderMaterial. Feed scroll in through a ref so the canvas never re-mounts.' },
+  { n: '4', title: 'Generate assets with AI', body: 'The three project-card images were generated with Higgsfield (nano-banana model) from prompts like “ultra-minimal studio photograph, crimson silk thread, seamless white background, Apple advertising aesthetic.” (The plan called for Pinterest sourcing, but hotlinked images are brittle — generated, self-hosted assets are sharper and license-clean.)' },
+  { n: '5', title: 'Iterate three times, minimum', body: 'Pass 1: typography, spacing, color. Pass 2: motion timing and 3D performance (dpr caps, passive listeners, will-change). Pass 3: full visual QA at desktop and 390px mobile, then lighthouse the build.' },
+  { n: '6', title: 'Ship', body: 'Push to GitHub with Vercel git integration — every push to main deploys. vercel.json needs one SPA rewrite so /guide deep-links resolve.' },
+];
 
 export default function Guide() {
+  const [copied, setCopied] = useState(false);
+  const prompt = `Build me a premium single-page portfolio: Apple-store minimalism (light hero, generous whitespace, frosted-glass nav) fused with subtle Spider-Man motifs — crimson #e11d2e accents, a procedural 3D spider web hero in React Three Fiber that ripples toward the cursor, a silk cursor trail, and a spider cameo that rappels down on scroll. Stack: React 18 + Vite + Framer Motion. All copy in one content.js. Two routes: / and /guide (the making-of). Three iteration passes before shipping. Deploy to Vercel.`;
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(prompt);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      /* clipboard unavailable */
+    }
+  };
+
   return (
     <main>
-      <section className="guide-hero" style={{ position: 'relative', overflow: 'hidden' }}>
-        <WebCorner style={{ top: 0, left: 0, transform: 'rotate(180deg) scaleX(-1)' }} />
+      <section className="guide-hero">
         <div className="wrap">
           <Reveal>
-            <p className="eyebrow">/guide</p>
-            <h1 className="display-xl" style={{ margin: '14px 0 18px' }}>
-              How this site{' '}
-              <span className="serif-accent" style={{ color: 'var(--red)' }}>swings.</span>
+            <p className="eyebrow">The guide</p>
+            <h1 className="display-xl" style={{ marginTop: 16 }}>
+              How this site<br />was <span className="serif-accent" style={{ color: 'var(--red)' }}>spun.</span>
             </h1>
-            <p className="lede" style={{ maxWidth: 640 }}>
-              The full technical breakdown — how the animations work, why they feel physical,
-              and the exact process used to build this site with Claude, so you can do the same.
+            <p className="lede" style={{ maxWidth: 640, marginTop: 24 }}>
+              The full technical breakdown — architecture, animation engineering, AI-generated
+              assets, and a copy-pasteable workflow so you can replicate it.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section style={{ padding: '20px 0 80px' }}>
+      <section className="section section-grey" style={{ paddingTop: 70 }}>
         <div className="wrap">
-          {steps.map((s) => (
-            <Reveal key={s.n} className="guide-step">
-              <span className="guide-step-num">{s.n}</span>
-              <div>
-                <h3>{s.title}</h3>
-                <p className="body-copy">{s.copy}</p>
+          <Reveal className="section-head">
+            <h2 className="display-lg">Architecture.</h2>
+          </Reveal>
+          {stack.map((s, i) => (
+            <Reveal key={s.k} delay={i * 0.05}>
+              <div className="guide-step cols-wide">
+                <h3 style={{ color: 'var(--red)' }}>{s.k}</h3>
+                <p className="body-copy">{s.v}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap">
+          <Reveal className="section-head">
+            <h2 className="display-lg">Motion engineering.</h2>
+            <p className="lede" style={{ marginTop: 14, maxWidth: 620 }}>
+              Nothing here is a library preset. Every animation is built from springs,
+              shaders, and observers — and all of it respects prefers-reduced-motion.
+            </p>
+          </Reveal>
+          {motionNotes.map((m, i) => (
+            <Reveal key={m.title} delay={i * 0.05}>
+              <div className="guide-step cols-wide">
+                <h3>{m.title}</h3>
+                <p className="body-copy">{m.body}</p>
               </div>
             </Reveal>
           ))}
@@ -109,29 +101,39 @@ export default function Guide() {
 
       <section className="section section-dark">
         <div className="wrap">
-          <Reveal>
-            <p className="eyebrow">Asset pipeline</p>
-            <h2 className="display-lg" style={{ color: '#f5f5f7', margin: '14px 0 12px' }}>
-              5 engineered prompts for Gemini Advanced
-            </h2>
-            <p className="lede" style={{ maxWidth: 640, marginBottom: 48 }}>
-              Copy these into Gemini Advanced to generate 4K Spider-Man-flavored assets that
-              drop straight into this design system. Each prompt locks palette, composition,
-              lighting, and negative space so the output matches the site.
+          <Reveal className="section-head">
+            <h2 className="display-lg" style={{ color: '#f5f5f7' }}>Replicate it.</h2>
+            <p className="lede" style={{ marginTop: 14, maxWidth: 620 }}>
+              Six steps from blank folder to live site.
             </p>
           </Reveal>
-          {prompts.map((p) => (
-            <PromptCard key={p.title} p={p} />
+          {replicate.map((r, i) => (
+            <Reveal key={r.n} delay={i * 0.04}>
+              <div className="guide-step" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+                <span className="guide-step-num">{r.n}</span>
+                <div>
+                  <h3 style={{ color: '#f5f5f7' }}>{r.title}</h3>
+                  <p className="body-copy">{r.body}</p>
+                </div>
+              </div>
+            </Reveal>
           ))}
-          <Reveal>
-            <p className="footnote" style={{ color: '#86868b', marginTop: 20 }}>
-              Swap tip: replace any feature-card background by changing its <span className="mono">img</span> URL
-              in <span className="mono">src/components/Features.jsx</span> — the scrim gradient keeps text legible
-              with any image.
-            </p>
+
+          <Reveal delay={0.1}>
+            <div className="prompt-card" style={{ marginTop: 48 }}>
+              <div className="prompt-head">
+                <h4>The one-prompt version</h4>
+                <button className="copy-btn" onClick={copy}>
+                  {copied ? 'Copied ✓' : 'Copy prompt'}
+                </button>
+              </div>
+              <div className="prompt-body">{prompt}</div>
+            </div>
           </Reveal>
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }
