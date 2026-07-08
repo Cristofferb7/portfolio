@@ -82,7 +82,7 @@ export const projects = [
     body: 'A full-stack AI application — backend, frontend, user auth, persistent database — architected solo, with zero senior guidance. The Gemini 1.5 Flash agent runs custom system instructions that enforce structured JSON output, making the AI a reliable API citizen instead of a chat toy.',
     tech: ['FastAPI', 'React', 'Gemini 1.5 Flash', 'PostgreSQL'],
     image: art.silkRed, fallback: 'linear-gradient(135deg,#2a0509,#7a0f1c)',
-    links: [{ label: 'GitHub', href: 'https://github.com/cristofferb7' }],
+    links: [{ label: 'GitHub', href: 'https://github.com/Cristofferb7/ai_fighter_matchup' }],
     span: 7,
   },
   {
@@ -92,7 +92,10 @@ export const projects = [
     body: 'An AI-powered image identification app: Gemini API classification streaming into a Next.js + TypeScript frontend, deployed and live. Point, shoot, identified.',
     tech: ['Next.js', 'TypeScript', 'Gemini API', 'Vercel'],
     image: art.glassStack, fallback: 'linear-gradient(135deg,#15151b,#3a3a46)',
-    links: [{ label: 'GitHub', href: 'https://github.com/cristofferb7' }],
+    links: [
+      { label: 'GitHub', href: 'https://github.com/Cristofferb7/Whos-That-Pokemonv2' },
+      { label: 'Live Demo', href: 'https://whos-that-pokemonv2.vercel.app' },
+    ],
     span: 5,
   },
 ];
