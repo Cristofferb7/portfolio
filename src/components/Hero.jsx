@@ -1,6 +1,10 @@
+import { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
-import WebScene from '../three/WebScene.jsx';
 import { ScrollMouse, Thwip } from '../icons.jsx';
+
+// Lazy-load the 3D scene: the hero copy animates instantly while
+// the three.js chunk streams in behind it.
+const WebScene = lazy(() => import('../three/WebScene.jsx'));
 
 const container = {
   hidden: {},
@@ -14,7 +18,9 @@ const rise = {
 export default function Hero() {
   return (
     <header className="hero">
-      <WebScene />
+      <Suspense fallback={null}>
+        <WebScene />
+      </Suspense>
       <motion.div
         className="wrap hero-content"
         variants={container}
