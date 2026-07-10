@@ -139,14 +139,21 @@ export const education = [
 export const skills = [
   { icon: 'js', title: 'JavaScript / TypeScript', body: 'React, React Native, Node.js — the language of the product surface.' },
   { icon: 'py', title: 'Python', body: 'FastAPI and Django. APIs that are typed, tested, and documented.' },
-  { icon: 'sys', title: 'Java · C · C++', body: 'Memory models, pointers, and OOP — the fundamentals under everything.' },
-  { icon: 'ai', title: 'AI & GenAI', body: 'Claude agentic/spec-driven development, Gemini prompt & system-instruction engineering.' },
-  { icon: 'db', title: 'Data Layer', body: 'PostgreSQL, MySQL, Presto, Cassandra, Iceberg, MongoDB.' },
-  { icon: 'ops', title: 'Integration & Ops', body: 'REST, GraphQL, CI/CD, Docker, GitHub — plus third-party APIs in production.' },
+  { icon: 'sys', title: 'Java · C · C++ · C#', body: 'Memory models, pointers, and OOP — the fundamentals under everything.' },
+  { icon: 'ai', title: 'AI & GenAI', body: 'Claude agentic/spec-driven development, Gemini prompt & system-instruction engineering, NotebookLM.' },
+  { icon: 'web', title: 'Web Platform', body: 'Next.js, Vite, HTML/CSS, PWAs — the full MERN stack, deployed on Vercel.' },
+  { icon: 'motion', title: 'Motion & 3D', body: 'Framer Motion, React Three Fiber, Three.js, GLSL shaders. This site is the demo.' },
+  { icon: 'db', title: 'SQL & Federation', body: 'PostgreSQL, MySQL, and federated Presto SQL across live enterprise clusters.' },
+  { icon: 'nosql', title: 'NoSQL & Big Data', body: 'Cassandra, Iceberg, MongoDB, OpenSearch — hot and cold data on IBM watsonx.data.' },
+  { icon: 'api', title: 'APIs & Contracts', body: 'REST, GraphQL, OpenAPI contract tests, third-party integrations (Gemini, Ticketmaster).' },
+  { icon: 'ops', title: 'DevOps & Tooling', body: 'CI/CD pipelines, Docker, Git/GitHub, Vercel — iterative deployments with review discipline.' },
+  { icon: 'agile', title: 'Agile Delivery', body: 'Scrum ceremonies, code reviews, cross-functional sprints with engineering and product.' },
+  { icon: 'auto', title: 'Automation & Analytics', body: 'Logic-based Excel engines, KPI dashboards, workflow automation that cut turnaround 80%.' },
 ];
 
 export const marquee = [
   'React', 'TypeScript', 'FastAPI', 'Presto', 'Cassandra', 'Iceberg',
   'PostgreSQL', 'Gemini', 'Claude', 'Next.js', 'Node.js', 'Docker',
-  'GraphQL', 'Python', 'Java', 'C++',
+  'GraphQL', 'Python', 'Java', 'C++', 'React Native', 'MongoDB',
+  'Three.js', 'Framer Motion', 'MySQL', 'Vite',
 ];
