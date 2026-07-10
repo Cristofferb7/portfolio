@@ -226,9 +226,19 @@ img { display: block; max-width: 100%; }
 .feature-card.span-12 { grid-column: span 12; min-height: 560px; }
 .feature-media {
   position: absolute; inset: -4%; z-index: -2;
-  background-size: cover; background-position: center;
+  background-size: cover; background-position: 50% 50%;
   transition: transform 1.2s var(--ease-out);
-  will-change: transform;
+  will-change: transform, background-position;
+  animation: media-drift 26s ease-in-out infinite alternate;
+}
+@keyframes media-drift {
+  from { background-position: 44% 47%; }
+  to { background-position: 56% 53%; }
+}
+.feature-media-video {
+  width: 108%; height: 108%;
+  object-fit: cover;
+  animation: none;
 }
 .feature-card:hover .feature-media { transform: scale(1.05); }
 .feature-scrim {
@@ -580,5 +590,7 @@ img { display: block; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .marquee-track { animation: none; }
+  .feature-media { animation: none; }
+  .swipe-hint { animation: none; }
   .silk-trail, .spider-cameo { display: none; }
 }
