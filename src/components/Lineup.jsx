@@ -122,6 +122,8 @@ export default function Lineup() {
             ref={rowRef}
             className="lineup-row"
             role="list"
+            tabIndex={0}
+            aria-label="Capability cards — use arrow keys or swipe to scroll"
             onScroll={syncEdges}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
