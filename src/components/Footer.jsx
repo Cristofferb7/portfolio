@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
 import Reveal from './Reveal.jsx';
 import { Magnetic } from './Reveal.jsx';
 import { identity } from '../content.js';
 import { SpiderMark } from '../icons.jsx';
+import { openResume } from './ResumeModal.jsx';
 
 export default function Footer() {
   return (
@@ -42,12 +42,14 @@ export default function Footer() {
             <nav className="footer-links" aria-label="Footer">
               <a className="footer-link" href={identity.github} target="_blank" rel="noreferrer">GitHub</a>
               <a className="footer-link" href={`mailto:${identity.email}`}>Email</a>
-              <Link className="footer-link" to="/guide">How this site was built</Link>
+              <button className="footer-link" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={openResume}>
+                Résumé
+              </button>
             </nav>
           </div>
           <p className="footnote">
             © {new Date().getFullYear()} {identity.name}. Designed and engineered in Brooklyn — with great power and a 4.0 GPA.
-            Built with React, Vite, React Three Fiber & Framer Motion. <Link to="/guide" style={{ textDecoration: 'underline' }}>Read the guide</Link>.
+            Built with React, Vite, React Three Fiber & Framer Motion.
           </p>
         </div>
       </footer>
