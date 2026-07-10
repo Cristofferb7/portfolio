@@ -226,9 +226,19 @@ img { display: block; max-width: 100%; }
 .feature-card.span-12 { grid-column: span 12; min-height: 560px; }
 .feature-media {
   position: absolute; inset: -4%; z-index: -2;
-  background-size: cover; background-position: center;
+  background-size: cover; background-position: 50% 50%;
   transition: transform 1.2s var(--ease-out);
-  will-change: transform;
+  will-change: transform, background-position;
+  animation: media-drift 26s ease-in-out infinite alternate;
+}
+@keyframes media-drift {
+  from { background-position: 44% 47%; }
+  to { background-position: 56% 53%; }
+}
+.feature-media-video {
+  width: 108%; height: 108%;
+  object-fit: cover;
+  animation: none;
 }
 .feature-card:hover .feature-media { transform: scale(1.05); }
 .feature-scrim {
@@ -265,6 +275,34 @@ img { display: block; max-width: 100%; }
   border: 1px solid rgba(255,255,255,0.18);
   backdrop-filter: blur(8px);
   color: rgba(255,255,255,0.92);
+}
+
+/* ---------- Archive (more builds) ---------- */
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+.archive-card {
+  display: flex; flex-direction: column; gap: 8px; flex: 1;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 22px 22px 18px;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.archive-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(225, 29, 46, 0.45);
+  box-shadow: 0 16px 36px rgba(29, 29, 31, 0.08);
+}
+.archive-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--muted); }
+.archive-card:hover .archive-top { color: var(--red); }
+.archive-top h4 { font-size: 16px; letter-spacing: -0.015em; color: var(--ink); }
+.archive-card p { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); flex: 1; }
+.archive-tech {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--muted); letter-spacing: 0.02em;
 }
 
 /* ---------- How I build (sticky scroll-telling) ---------- */
@@ -580,5 +618,7 @@ img { display: block; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .marquee-track { animation: none; }
+  .feature-media { animation: none; }
+  .swipe-hint { animation: none; }
   .silk-trail, .spider-cameo { display: none; }
 }
