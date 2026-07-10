@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SpiderMark } from '../icons.jsx';
 import { identity } from '../content.js';
+import { openResume } from './ResumeModal.jsx';
 
 const sections = [
   { label: 'Capabilities', id: 'capabilities' },
@@ -10,7 +11,7 @@ const sections = [
   { label: 'Process', id: 'process' },
   { label: 'Experience', id: 'experience' },
   { label: 'Skills', id: 'skills' },
-  { label: 'Guide', to: '/guide' },
+  { label: 'Résumé', resume: true },
 ];
 
 export default function Nav() {
@@ -30,10 +31,17 @@ export default function Nav() {
 
   const renderLinks = () =>
     sections.map((s) =>
-      s.to ? (
-        <Link key={s.label} className="nav-link" to={s.to} onClick={() => setOpen(false)}>
+      s.resume ? (
+        <button
+          key={s.label}
+          className="nav-link"
+          onClick={() => {
+            setOpen(false);
+            openResume();
+          }}
+        >
           {s.label}
-        </Link>
+        </button>
       ) : (
         <button key={s.label} className="nav-link" onClick={() => go(s.id)}>
           {s.label}
