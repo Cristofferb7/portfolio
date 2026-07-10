@@ -40,11 +40,26 @@ function FeatureCard({ p, delay }) {
         onPointerLeave={onLeave}
         style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', flex: 1, borderRadius: 'inherit', overflow: 'hidden', position: 'relative', isolation: 'isolate' }}
       >
-        <div
-          ref={media}
-          className="feature-media"
-          style={{ backgroundImage: `url(${p.image})${p.fallback ? `, ${p.fallback}` : ''}` }}
-        />
+        {p.video && !reduced ? (
+          <video
+            ref={media}
+            className="feature-media feature-media-video"
+            src={p.video}
+            poster={p.image}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+          />
+        ) : (
+          <div
+            ref={media}
+            className="feature-media"
+            style={{ backgroundImage: `url(${p.image})${p.fallback ? `, ${p.fallback}` : ''}` }}
+          />
+        )}
         <div className="feature-scrim" />
         <div className="feature-body">
           <span className="feature-tag">{p.tag}</span>
