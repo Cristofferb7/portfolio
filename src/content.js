@@ -9,6 +9,8 @@ export const identity = {
   location: 'Brooklyn, NY',
   email: 'cristofferbohorquez@gmail.com',
   github: 'https://github.com/cristofferb7',
+  resume: '/resume.pdf',
+  resumeFilename: 'Cristoffer_Bohorquez_Software_Engineer.pdf',
   tagline: 'Builds that stick.',
   sub: 'Full-stack developer and AI-agent engineer. Computer Science @ UCF — 4.0. I ship intelligent products end to end: federated data planes, agentic backends, and frontends with a pulse.',
 };
@@ -105,7 +107,7 @@ export const experience = [
     company: 'Verizon',
     role: 'Sales Engineer',
     period: 'May 2025 — Present · Orlando, FL',
-    body: 'The technical translator for a 24-store region. Live device demos and real-time troubleshooting on customer calls; system-log forensics and internal-API work that bridge operations and engineering when integrations and billing go sideways.',
+    body: 'The technical translator for a 24-store region. Live device demos and real-time troubleshooting on customer calls; system-log forensics and internal-API work that bridge operations and engineering when integrations and billing go sideways. Leads district-wide GenAI enablement — training teams on Gemini, prompt engineering, and NotebookLM to automate workflows.',
   },
   {
     company: 'Verizon',
