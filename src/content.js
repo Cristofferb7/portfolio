@@ -72,6 +72,7 @@ export const projects = [
     tech: ['FastAPI', 'Presto', 'Cassandra', 'Iceberg', 'watsonx.data', 'OpenAPI'],
     image: art.threadsDark, fallback: 'linear-gradient(135deg,#0b0b0f,#1c1c26)',
     video: '/pulse.mp4',
+    hasCaseStudy: true,
     links: [
       { label: 'GitHub', href: 'https://github.com/Cristofferb7/wxd-spec-coding-dashboard' },
       { label: 'Live Demo', href: 'https://wxd-spec-coding-dashboard.vercel.app' },
@@ -127,6 +128,40 @@ export const projects = [
     span: 7,
   },
 ];
+
+/** Case study — Federated Analytics API (IBM watsonx.data workshop). */
+export const caseStudy = {
+  eyebrow: 'Case study',
+  title: 'Inside the build',
+  overview:
+    'Built in a 3-hour IBM watsonx.data workshop against a live, shared enterprise cluster. Spec-driven with an AI agent: requirements doc → design + OpenAPI contract → code → tests — every endpoint traces back to a REQ-ID, and tests assert what the spec says, not what the code happens to return.',
+  arch: {
+    engine: { name: 'Presto', desc: 'Federated SQL engine — one query, both stores' },
+    hot: { name: 'Cassandra', desc: 'Hot · operational. Current state, live orders, single-row ops' },
+    cold: { name: 'Iceberg', desc: 'Cold · archival. Order history, daily rollups, monthly LTV' },
+  },
+  sql: `SELECT c.customer_id, COUNT(o.order_id) AS recent_orders
+FROM cassandra.ecommerce.customers c
+LEFT JOIN iceberg_data.ecommerce_reference.orders_archive o
+  ON o.customer_id = c.customer_id
+WHERE o.order_date >= DATE '2025-01-01'
+GROUP BY c.customer_id
+ORDER BY recent_orders DESC
+LIMIT 10`,
+  sqlCaption:
+    'The central trick: one Presto statement joining hot customer records in Cassandra against the cold order archive in Iceberg — no ETL, no sync job.',
+  steps: [
+    { n: '01', title: 'Requirements', body: 'Read the real Cassandra & Iceberg DDL, then write 5–7 concrete, testable REQs. No table gets referenced unless it exists in the schema files.' },
+    { n: '02', title: 'Design + contract', body: 'Data-flow design and an OpenAPI spec — every REQ-ID covered by at least one endpoint, with response examples.' },
+    { n: '03', title: 'Build + test', body: 'Task list → FastAPI code → contract tests. Tests assert the spec. Run, fix, demo an endpoint end-to-end.' },
+    { n: '04', title: 'Expand', body: 'Add a new REQ and propagate it through the whole chain: requirements → contract → tasks → code → tests → UI.' },
+  ],
+  hardParts: [
+    { title: 'Bearer-token auth, no SDK', body: 'Two-step flow: mint a token from the Software Hub API, then POST SQL to Presto over TLS and poll nextUri until FINISHED — with a hand-rolled HTTP client.' },
+    { title: 'Cassandra behind a TLS route', body: 'The driver discovers internal pod IPs and stalls ~15s per unreachable node. Fixed with a custom EndPointFactory that collapses every discovered node back to the single :443 route.' },
+    { title: 'Federation performance', body: 'A shared Presto coordinator punishes sloppy SQL — partition filters and explicit JOIN conditions are spec-level requirements, not afterthoughts.' },
+  ],
+};
 
 /** More builds — the archive. Compact cards, GitHub-linked. */
 export const archive = [
