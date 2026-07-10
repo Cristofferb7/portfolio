@@ -178,6 +178,75 @@ export const lineupIcons = {
   velocity: IconVelocity,
 };
 
+export function IconWeb({ size = 30 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 30 30" style={{ color: 'var(--red)' }} aria-hidden="true">
+      <g {...S}>
+        <circle cx="15" cy="15" r="10.5" />
+        <path d="M4.5 15h21M15 4.5c-3 3-4.5 6.5-4.5 10.5S12 22.5 15 25.5c3-3 4.5-6.5 4.5-10.5S18 7.5 15 4.5Z" />
+      </g>
+    </svg>
+  );
+}
+
+export function IconMotion({ size = 30 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 30 30" style={{ color: 'var(--red)' }} aria-hidden="true">
+      <g {...S}>
+        <path d="M4 22c4-12 8-12 11-6s7 6 11-6" />
+        <circle cx="15" cy="19" r="1.4" fill="currentColor" stroke="none" />
+        <path d="M4 8h5M4 12h3" opacity="0.55" />
+      </g>
+    </svg>
+  );
+}
+
+export function IconNoSQL({ size = 30 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 30 30" style={{ color: 'var(--red)' }} aria-hidden="true">
+      <g {...S}>
+        <path d="M15 3.5 24.5 9v12L15 26.5 5.5 21V9L15 3.5Z" />
+        <path d="M5.5 9 15 14.5 24.5 9M15 14.5v12" opacity="0.6" />
+      </g>
+    </svg>
+  );
+}
+
+export function IconAPI({ size = 30 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 30 30" style={{ color: 'var(--red)' }} aria-hidden="true">
+      <g {...S}>
+        <path d="M10 7c-2.5 0-4 1.3-4 3.5 0 1.8-.6 2.8-2.5 3 1.9.2 2.5 1.2 2.5 3 0 2.2 1.5 3.5 4 3.5" />
+        <path d="M20 7c2.5 0 4 1.3 4 3.5 0 1.8.6 2.8 2.5 3-1.9.2-2.5 1.2-2.5 3 0 2.2-1.5 3.5-4 3.5" />
+        <path d="m16.5 10-3 9.5" opacity="0.6" />
+      </g>
+    </svg>
+  );
+}
+
+export function IconAgile({ size = 30 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 30 30" style={{ color: 'var(--red)' }} aria-hidden="true">
+      <g {...S}>
+        <path d="M24.5 15a9.5 9.5 0 1 1-2.8-6.7" />
+        <path d="M25 4.5v4h-4" />
+        <path d="m11.5 15 2.5 2.5 4.5-4.5" opacity="0.7" />
+      </g>
+    </svg>
+  );
+}
+
+export function IconAuto({ size = 30 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 30 30" style={{ color: 'var(--red)' }} aria-hidden="true">
+      <g {...S}>
+        <circle cx="15" cy="15" r="3.4" />
+        <path d="M15 4.5v3.2M15 22.3v3.2M4.5 15h3.2M22.3 15h3.2M7.6 7.6l2.3 2.3M20.1 20.1l2.3 2.3M22.4 7.6l-2.3 2.3M9.9 20.1l-2.3 2.3" />
+      </g>
+    </svg>
+  );
+}
+
 export const skillIcons = {
   js: IconJS,
   py: IconPy,
@@ -185,4 +254,10 @@ export const skillIcons = {
   ai: IconAI,
   db: IconDB,
   ops: IconOps,
+  web: IconWeb,
+  motion: IconMotion,
+  nosql: IconNoSQL,
+  api: IconAPI,
+  agile: IconAgile,
+  auto: IconAuto,
 };
