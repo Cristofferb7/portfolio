@@ -71,6 +71,7 @@ export const projects = [
     body: 'A six-endpoint analytics API against a live enterprise IBM watsonx.data cluster. Federated Presto SQL joins hot operational data in Cassandra with cold historical archives in Iceberg — in a single query. Spec-driven from requirements docs to code, with OpenAPI contract tests and custom TLS bearer-token clients, built via AI-agent pair programming.',
     tech: ['FastAPI', 'Presto', 'Cassandra', 'Iceberg', 'watsonx.data', 'OpenAPI'],
     image: art.threadsDark, fallback: 'linear-gradient(135deg,#0b0b0f,#1c1c26)',
+    video: '/pulse.mp4',
     links: [
       { label: 'GitHub', href: 'https://github.com/Cristofferb7/wxd-spec-coding-dashboard' },
       { label: 'Live Demo', href: 'https://wxd-spec-coding-dashboard.vercel.app' },
@@ -84,7 +85,10 @@ export const projects = [
     body: 'A full-stack AI application — backend, frontend, user auth, persistent database — architected solo, with zero senior guidance. The Gemini 1.5 Flash agent runs custom system instructions that enforce structured JSON output, making the AI a reliable API citizen instead of a chat toy.',
     tech: ['FastAPI', 'React', 'Gemini 1.5 Flash', 'PostgreSQL'],
     image: art.silkRed, fallback: 'linear-gradient(135deg,#2a0509,#7a0f1c)',
-    links: [{ label: 'GitHub', href: 'https://github.com/Cristofferb7/ai_fighter_matchup' }],
+    links: [
+      { label: 'GitHub', href: 'https://github.com/Cristofferb7/ai_fighter_matchup' },
+      { label: 'Watch Demo', href: 'https://www.youtube.com/watch?v=IoQhgGu-tB8' },
+    ],
     span: 7,
   },
   {
@@ -94,12 +98,50 @@ export const projects = [
     body: 'An AI-powered image identification app: Gemini API classification streaming into a Next.js + TypeScript frontend, deployed and live. Point, shoot, identified.',
     tech: ['Next.js', 'TypeScript', 'Gemini API', 'Vercel'],
     image: art.glassStack, fallback: 'linear-gradient(135deg,#15151b,#3a3a46)',
+    video: '/wtp.mp4',
     links: [
       { label: 'GitHub', href: 'https://github.com/Cristofferb7/Whos-That-Pokemonv2' },
       { label: 'Live Demo', href: 'https://whos-that-pokemonv2.vercel.app' },
     ],
     span: 5,
   },
+  {
+    tag: 'Mobile · Social',
+    title: 'MeetMatch',
+    hook: 'Events worth leaving the house for.',
+    body: 'A mobile social app that matches people through real-world events — browse local happenings via the Ticketmaster API, RSVP, match, and chat. Events, matches, and conversations in one native-feeling flow.',
+    tech: ['React Native', 'Ticketmaster API', 'Node.js'],
+    image: art.sphere, fallback: 'linear-gradient(135deg,#1b0f2a,#3d1a52)',
+    video: '/meetmatch.mp4',
+    links: [],
+    span: 5,
+  },
+  {
+    tag: 'Meta · This site',
+    title: 'This Portfolio',
+    hook: 'The résumé that renders itself.',
+    body: 'Apple-store minimalism fused with Spider-Man motifs: a procedural GLSL spider-web hero with pointer-ripple physics, scroll-telling, magnetic buttons, and a silk cursor trail. Spec-driven and AI-agent pair-programmed with Claude — designed, built, and shipped in days.',
+    tech: ['React 18', 'Vite', 'React Three Fiber', 'GLSL', 'Framer Motion', 'Claude'],
+    image: art.silkRed, fallback: 'linear-gradient(135deg,#2a0509,#7a0f1c)',
+    links: [{ label: 'GitHub', href: 'https://github.com/Cristofferb7/portfolio' }],
+    span: 7,
+  },
+];
+
+/** More builds — the archive. Compact cards, GitHub-linked. */
+export const archive = [
+  { title: 'PrepHub', body: 'Interview & study prep hub.', tech: 'JavaScript', href: 'https://github.com/Cristofferb7/PrepHub' },
+  { title: 'Social Network API', body: 'REST API for users, thoughts & friend graphs.', tech: 'Node · Express · MongoDB', href: 'https://github.com/Cristofferb7/Social-Network-API' },
+  { title: 'E-commerce Backend', body: 'Products, categories & tags over Sequelize ORM.', tech: 'Node · Express · MySQL', href: 'https://github.com/Cristofferb7/E-commerce' },
+  { title: 'Tech Blog', body: 'Full-stack blog with auth and server-side rendering.', tech: 'Node · Handlebars · MySQL', href: 'https://github.com/Cristofferb7/Tech-Blog' },
+  { title: 'Employee Tracker', body: 'CLI for managing departments, roles & employees.', tech: 'Node · Inquirer · MySQL', href: 'https://github.com/Cristofferb7/employee-tracker' },
+  { title: 'Weather App', body: '5-day forecasts from the OpenWeather API.', tech: 'JavaScript · REST', href: 'https://github.com/Cristofferb7/weather-app' },
+  { title: 'Easy Notetaker', body: 'Express note-taking app with persistent storage.', tech: 'Node · Express', href: 'https://github.com/Cristofferb7/easy-notetaker' },
+  { title: 'SVG Logo Maker', body: 'Generates custom SVG logos from CLI prompts.', tech: 'Node · Jest', href: 'https://github.com/Cristofferb7/SVG-Logo-Maker' },
+  { title: 'Coding Quiz', body: 'Timed quiz with persistent high scores.', tech: 'JavaScript', href: 'https://github.com/Cristofferb7/Coding-Quiz' },
+  { title: 'Password Generator', body: 'Criteria-driven secure password generator.', tech: 'JavaScript', href: 'https://github.com/Cristofferb7/password-generator' },
+  { title: 'Workday Scheduler', body: 'Hour-by-hour daily planner with local persistence.', tech: 'JavaScript · Day.js', href: 'https://github.com/Cristofferb7/workday-schedule' },
+  { title: 'C Todo Manager', body: 'Day-to-day task manager written in pure C.', tech: 'C', href: 'https://github.com/Cristofferb7/c-todo-manager' },
 ];
 
 export const experience = [
