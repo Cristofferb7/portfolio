@@ -279,6 +279,12 @@ export default function HeroScene({ scrollRef }) {
   const wrapRef = useRef(null);
   const [visible, setVisible] = useState(true);
 
+  // static single frame for users who prefer reduced motion
+  const reduced = useMemo(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    []
+  );
+
   // stop the GL frameloop entirely once the hero has scrolled away
   useEffect(() => {
     const el = wrapRef.current;
@@ -293,8 +299,8 @@ export default function HeroScene({ scrollRef }) {
       <Canvas
         className="hero-canvas"
         camera={{ position: [0, 0, 11], fov: 42 }}
-        dpr={[1, 2]}
-        frameloop={visible ? 'always' : 'never'}
+        dpr={[1, 1.5]}
+        frameloop={reduced ? 'demand' : visible ? 'always' : 'never'}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         style={{ position: 'absolute', inset: 0 }}
       >

@@ -1,6 +1,7 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import Reveal from './Reveal.jsx';
+import CaseStudy from './CaseStudy.jsx';
 import { projects } from '../content.js';
 import { ArrowUpRight } from '../icons.jsx';
 
@@ -9,6 +10,7 @@ function FeatureCard({ p, delay }) {
   const ref = useRef(null);
   const media = useRef(null);
   const reduced = useReducedMotion();
+  const [studyOpen, setStudyOpen] = useState(false);
 
   const onMove = (e) => {
     if (reduced) return;
@@ -33,12 +35,13 @@ function FeatureCard({ p, delay }) {
   };
 
   return (
-    <Reveal delay={delay} className={`feature-card span-${p.span}`} style={{ display: 'flex' }}>
+    <Reveal delay={delay} className={`feature-cell span-${p.span}`} style={{ display: 'flex', flexDirection: 'column' }}>
       <article
         ref={ref}
+        className="feature-card"
         onPointerMove={onMove}
         onPointerLeave={onLeave}
-        style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', flex: 1, borderRadius: 'inherit', overflow: 'hidden', position: 'relative', isolation: 'isolate' }}
+        style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', flex: 1 }}
       >
         {p.video && !reduced ? (
           <video
@@ -71,17 +74,33 @@ function FeatureCard({ p, delay }) {
               <span key={t} className="tech-pill">{t}</span>
             ))}
           </div>
-          {p.links.length > 0 && (
+          {(p.links.length > 0 || p.hasCaseStudy) && (
             <div className="feature-links">
               {p.links.map((l) => (
                 <a key={l.label} className="feature-link" href={l.href} target="_blank" rel="noreferrer">
                   {l.label} <ArrowUpRight />
                 </a>
               ))}
+              {p.hasCaseStudy && (
+                <button
+                  className="feature-link cs-toggle"
+                  aria-expanded={studyOpen}
+                  onClick={() => setStudyOpen((v) => !v)}
+                >
+                  Case Study
+                  <svg
+                    width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"
+                    style={{ transform: studyOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.35s cubic-bezier(0.22,1,0.36,1)' }}
+                  >
+                    <path d="m2 4 4 4 4-4" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+              )}
             </div>
           )}
         </div>
       </article>
+      {p.hasCaseStudy && <CaseStudy open={studyOpen} />}
     </Reveal>
   );
 }
