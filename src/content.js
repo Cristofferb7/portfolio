@@ -9,6 +9,7 @@ export const identity = {
   location: 'Brooklyn, NY',
   email: 'cristofferbohorquez@gmail.com',
   github: 'https://github.com/cristofferb7',
+  linkedin: 'https://www.linkedin.com/in/cristoffer-bohorquez',
   resume: '/resume.pdf',
   resumeFilename: 'Cristoffer_Bohorquez_Software_Engineer.pdf',
   tagline: 'Builds that stick.',
@@ -65,6 +66,20 @@ export const art = {
 
 export const projects = [
   {
+    tag: 'Data Platform · ML',
+    title: 'VGC Champions Vault',
+    hook: 'Three data pipelines. One 90-second window.',
+    body: 'A competitive HUD for Pokémon Champions: screenshot an opponent’s team preview and OCR turns it into a live threat matrix with real damage math — inside the 90-second prep window. Three self-updating pipelines (daily usage stats, monthly ladder data, weekly tournament sheets via GitHub Actions) feed spread distributions, checks-and-counters evidence, and k-means archetype clustering over 6,900+ real tournament teams. One codebase ships as an installable PWA and a CI-built Android APK.',
+    tech: ['React', 'TypeScript', 'tesseract.js', 'k-means', 'GitHub Actions', 'Capacitor', 'PWA'],
+    image: art.threadsDark, fallback: 'linear-gradient(135deg,#0b0e14,#123a3a)',
+    video: '/vault.mp4',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/Cristofferb7/VGC-Champions-Vault' },
+      { label: 'Live App', href: 'https://champions-analyzer.vercel.app' },
+    ],
+    span: 12,
+  },
+  {
     tag: 'Data Engineering',
     title: 'Federated Analytics API',
     hook: 'One query. Two worlds.',
@@ -76,6 +91,20 @@ export const projects = [
     links: [
       { label: 'GitHub', href: 'https://github.com/Cristofferb7/wxd-spec-coding-dashboard' },
       { label: 'Live Demo', href: 'https://wxd-spec-coding-dashboard.vercel.app' },
+    ],
+    span: 12,
+  },
+  {
+    tag: 'PWA · Offline-first',
+    title: 'PrepHub',
+    hook: 'Started 2023. Rebuilt after the 2026 quakes.',
+    body: 'An offline-first, Spanish-first earthquake-preparedness PWA for Venezuela, rebuilt from scratch after the June 2026 twin earthquakes. A family builds its 72-hour kit and reunification plan in one 20-minute session — then keeps it forever with no internet: full service-worker precache, IndexedDB, WhatsApp/print/QR sharing, and a black-screen emergency mode. No backend, no accounts, ~120 KB first load for old low-end Androids.',
+    tech: ['React', 'TypeScript', 'Vite', 'Workbox', 'Dexie / IndexedDB', 'Web Share API'],
+    image: art.threadsDark, fallback: 'linear-gradient(135deg,#0b1220,#7a4a00)',
+    video: '/prephub.mp4',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/Cristofferb7/prephub-v2' },
+      { label: 'Live App', href: 'https://prephub-delta.vercel.app' },
     ],
     span: 12,
   },
@@ -165,7 +194,7 @@ LIMIT 10`,
 
 /** More builds — the archive. Compact cards, GitHub-linked. */
 export const archive = [
-  { title: 'PrepHub', body: 'Interview & study prep hub.', tech: 'JavaScript', href: 'https://github.com/Cristofferb7/PrepHub' },
+  { title: 'PrepHub (2023 original)', body: 'The bootcamp version — rebuilt in 2026 as the offline-first PWA above.', tech: 'JavaScript', href: 'https://github.com/Cristofferb7/PrepHub' },
   { title: 'Social Network API', body: 'REST API for users, thoughts & friend graphs.', tech: 'Node · Express · MongoDB', href: 'https://github.com/Cristofferb7/Social-Network-API' },
   { title: 'E-commerce Backend', body: 'Products, categories & tags over Sequelize ORM.', tech: 'Node · Express · MySQL', href: 'https://github.com/Cristofferb7/E-commerce' },
   { title: 'Tech Blog', body: 'Full-stack blog with auth and server-side rendering.', tech: 'Node · Handlebars · MySQL', href: 'https://github.com/Cristofferb7/Tech-Blog' },
