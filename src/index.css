@@ -296,6 +296,11 @@ img { display: block; max-width: 100%; }
   gap: clamp(28px, 4vw, 56px);
   margin-top: 36px;
 }
+/* Grid items default to min-width:auto, so the pre-formatted SQL block forces
+   the column to its intrinsic width and the panel clips on phones. Let the
+   columns shrink; the SQL then scrolls inside its own box. */
+.cs-col { min-width: 0; }
+.cs-sql { max-width: 100%; }
 .cs-h {
   font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--red); margin: 26px 0 14px;

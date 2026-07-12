@@ -7,7 +7,7 @@ import { openResume } from './ResumeModal.jsx';
 
 const sections = [
   { label: 'Capabilities', id: 'capabilities' },
-  { label: 'Work', id: 'work' },
+  { label: 'Projects', id: 'work' },
   { label: 'Process', id: 'process' },
   { label: 'Experience', id: 'experience' },
   { label: 'Skills', id: 'skills' },

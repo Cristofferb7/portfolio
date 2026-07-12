@@ -29,6 +29,11 @@ export default function Footer() {
                   GitHub ↗
                 </a>
               </Magnetic>
+              <Magnetic strength={0.22}>
+                <a className="btn-ghost" href={identity.linkedin} target="_blank" rel="noreferrer">
+                  LinkedIn ↗
+                </a>
+              </Magnetic>
             </div>
           </Reveal>
         </div>
@@ -41,6 +46,7 @@ export default function Footer() {
             </span>
             <nav className="footer-links" aria-label="Footer">
               <a className="footer-link" href={identity.github} target="_blank" rel="noreferrer">GitHub</a>
+              <a className="footer-link" href={identity.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
               <a className="footer-link" href={`mailto:${identity.email}`}>Email</a>
               <button className="footer-link" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={openResume}>
                 Résumé
