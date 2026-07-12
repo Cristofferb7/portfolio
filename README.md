@@ -1,6 +1,6 @@
 # Cristoffer Bohorquez — Portfolio v2
 
-Apple-store minimalism × Spider-Man motifs. Live at [portfolio-three-red-18.vercel.app](https://portfolio-three-red-18.vercel.app).
+Apple-store minimalism × Spider-Man motifs. Live at [cristofferbohorquez.dev](https://cristofferbohorquez.dev).
 
 ## Stack
 
