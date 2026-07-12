@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import Hero from '../components/Hero.jsx';
 import Lineup from '../components/Lineup.jsx';
 import Projects from '../components/Projects.jsx';
-import Archive from '../components/Archive.jsx';
 import HowIBuild from '../components/HowIBuild.jsx';
 import Experience from '../components/Experience.jsx';
 import Skills from '../components/Skills.jsx';
@@ -17,7 +16,6 @@ export default function Home() {
       <Hero scrollProgressRef={scrollProgressRef} />
       <Lineup />
       <Projects />
-      <Archive />
       <HowIBuild />
       <Experience />
       <Skills />
