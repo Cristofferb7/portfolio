@@ -79,12 +79,17 @@ export default function Hero({ scrollProgressRef }) {
               className="btn-primary"
               onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              See the work
+              See the projects
             </button>
           </Magnetic>
           <Magnetic strength={0.22}>
             <a className="btn-ghost" href={identity.github} target="_blank" rel="noreferrer">
               GitHub ↗
+            </a>
+          </Magnetic>
+          <Magnetic strength={0.22}>
+            <a className="btn-ghost" href={identity.linkedin} target="_blank" rel="noreferrer">
+              LinkedIn ↗
             </a>
           </Magnetic>
         </motion.div>
