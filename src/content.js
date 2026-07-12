@@ -192,22 +192,6 @@ LIMIT 10`,
   ],
 };
 
-/** More builds — the archive. Compact cards, GitHub-linked. */
-export const archive = [
-  { title: 'PrepHub (2023 original)', body: 'The bootcamp version — rebuilt in 2026 as the offline-first PWA above.', tech: 'JavaScript', href: 'https://github.com/Cristofferb7/PrepHub' },
-  { title: 'Social Network API', body: 'REST API for users, thoughts & friend graphs.', tech: 'Node · Express · MongoDB', href: 'https://github.com/Cristofferb7/Social-Network-API' },
-  { title: 'E-commerce Backend', body: 'Products, categories & tags over Sequelize ORM.', tech: 'Node · Express · MySQL', href: 'https://github.com/Cristofferb7/E-commerce' },
-  { title: 'Tech Blog', body: 'Full-stack blog with auth and server-side rendering.', tech: 'Node · Handlebars · MySQL', href: 'https://github.com/Cristofferb7/Tech-Blog' },
-  { title: 'Employee Tracker', body: 'CLI for managing departments, roles & employees.', tech: 'Node · Inquirer · MySQL', href: 'https://github.com/Cristofferb7/employee-tracker' },
-  { title: 'Weather App', body: '5-day forecasts from the OpenWeather API.', tech: 'JavaScript · REST', href: 'https://github.com/Cristofferb7/weather-app' },
-  { title: 'Easy Notetaker', body: 'Express note-taking app with persistent storage.', tech: 'Node · Express', href: 'https://github.com/Cristofferb7/easy-notetaker' },
-  { title: 'SVG Logo Maker', body: 'Generates custom SVG logos from CLI prompts.', tech: 'Node · Jest', href: 'https://github.com/Cristofferb7/SVG-Logo-Maker' },
-  { title: 'Coding Quiz', body: 'Timed quiz with persistent high scores.', tech: 'JavaScript', href: 'https://github.com/Cristofferb7/Coding-Quiz' },
-  { title: 'Password Generator', body: 'Criteria-driven secure password generator.', tech: 'JavaScript', href: 'https://github.com/Cristofferb7/password-generator' },
-  { title: 'Workday Scheduler', body: 'Hour-by-hour daily planner with local persistence.', tech: 'JavaScript · Day.js', href: 'https://github.com/Cristofferb7/workday-schedule' },
-  { title: 'C Todo Manager', body: 'Day-to-day task manager written in pure C.', tech: 'C', href: 'https://github.com/Cristofferb7/c-todo-manager' },
-];
-
 export const experience = [
   {
     company: 'Verizon',
