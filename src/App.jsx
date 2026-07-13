@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import Nav from './components/Nav.jsx';
-import SilkTrail from './components/SilkTrail.jsx';
 import ResumeModal from './components/ResumeModal.jsx';
 import Home from './pages/Home.jsx';
 
@@ -21,12 +20,12 @@ export default function App() {
   return (
     <>
       <motion.div className="thread-progress" style={{ scaleX }} />
-      <SilkTrail />
       <Nav />
       <ResumeModal />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   );

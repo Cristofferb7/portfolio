@@ -1,13 +1,13 @@
 # Cristoffer Bohorquez — Portfolio v2
 
-Apple-store minimalism × Spider-Man motifs. Live at [cristofferbohorquez.dev](https://cristofferbohorquez.dev).
+A clean, Spider-Man-themed personal portfolio. Live at [cristofferbohorquez.dev](https://cristofferbohorquez.dev).
 
 ## Stack
 
 - **React 18 + Vite** — single-page SPA with an in-page résumé modal (`/resume.pdf`)
 - **React Three Fiber + Three.js** — procedural 3D spider-web hero with a custom GLSL silk-shimmer shader, pointer-ripple physics, and scroll-linked recession (lazy-loaded off the critical path)
 - **Framer Motion** — per-word hero stagger, sticky scroll-telling, velocity-reactive marquee, spring counters, magnetic buttons
-- **Custom canvas/SVG** — silk cursor trail, spider cameo, all icons inline
+- **Custom canvas/SVG** — spider cameo, all icons inline
 
 ## Assets
 

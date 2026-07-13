@@ -232,6 +232,7 @@ img { display: block; max-width: 100%; }
   transition: transform 1.2s var(--ease-out);
   will-change: transform, background-position;
   animation: media-drift 26s ease-in-out infinite alternate;
+  filter: brightness(0.86);
 }
 @keyframes media-drift {
   from { background-position: 44% 47%; }
@@ -245,7 +246,7 @@ img { display: block; max-width: 100%; }
 .feature-card:hover .feature-media { transform: scale(1.05); }
 .feature-scrim {
   position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(to top, rgba(8, 8, 12, 0.88) 0%, rgba(8, 8, 12, 0.34) 46%, rgba(8, 8, 12, 0.06) 100%);
+  background: linear-gradient(to top, rgba(8, 8, 12, 0.92) 0%, rgba(8, 8, 12, 0.78) 28%, rgba(8, 8, 12, 0.45) 52%, rgba(8, 8, 12, 0.08) 100%);
 }
 .feature-body { padding: 36px; }
 .feature-tag {
@@ -481,13 +482,6 @@ img { display: block; max-width: 100%; }
   transform-origin: 0 50%;
 }
 
-/* ---------- Silk cursor trail ---------- */
-.silk-trail {
-  position: fixed; inset: 0;
-  z-index: 90;
-  pointer-events: none;
-}
-
 /* ---------- Spider cameo ---------- */
 .spider-cameo {
   position: fixed;
@@ -658,7 +652,7 @@ img { display: block; max-width: 100%; }
   .how-sticky { position: relative; top: 0; min-height: unset; }
   .how-viz { max-width: 100%; }
   .edu-grid { grid-template-columns: 1fr; }
-  .silk-trail, .spider-cameo { display: none; }
+  .spider-cameo { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -666,5 +660,5 @@ img { display: block; max-width: 100%; }
   .marquee-track { animation: none; }
   .feature-media { animation: none; }
   .swipe-hint { animation: none; }
-  .silk-trail, .spider-cameo { display: none; }
+  .spider-cameo { display: none; }
 }
