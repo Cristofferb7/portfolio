@@ -55,6 +55,7 @@ function FeatureCard({ p, delay }) {
             playsInline
             preload="metadata"
             aria-hidden="true"
+            style={p.videoPosition ? { objectPosition: p.videoPosition } : undefined}
           />
         ) : (
           <div
